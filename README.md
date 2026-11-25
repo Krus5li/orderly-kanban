@@ -1,5 +1,8 @@
 # Orderly
 
+<img width="1848" height="954" alt="image" src="https://github.com/user-attachments/assets/c5d3d1fc-8717-4382-8951-1e0361e7ebc9" />
+
+
 A static kanban board for tracking project increment tickets, plus a simple diagram canvas. No server, build step, or account.
 
 ## Open or publish
