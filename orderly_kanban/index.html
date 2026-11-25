@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orderly | Project board</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script defer src="assets/js/board/data.js"></script>
+  <script defer src="assets/js/board/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">Personal Project Tracker</p><h1>Orderly</h1><p class="subtitle">Ken's Local Kanban Board</p></div>
+    <div class="actions">
+      <a href="diagram.html" class="secondary link-button">Diagrams</a>
+      <button id="theme-toggle" class="secondary" type="button" aria-pressed="false">Switch to dark mode</button>
+      <div class="board-file-group">
+        <button id="board-file-button" class="secondary" type="button">Select board file</button>
+        <span id="board-file-label" class="board-file-label"></span>
+      </div>
+      <button id="import-button" class="load-button" type="button">Load</button>
+      <button id="export-button" class="save-button" type="button">Save</button>
+      <button id="add-ticket" type="button">+ New ticket</button>
+      <input id="import-file" type="file" accept=".csv,text/csv" hidden>
+    </div>
+  </header>
+  <main>
+    <div id="theme-notice" role="status" aria-live="polite"></div>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <section class="toolbar" aria-label="Board filters">
+      <label class="search">Search <input id="search" type="search" placeholder="Search tickets..."></label>
+      <label>Project <span class="select-wrap"><select id="project-filter"><option value="">All projects</option></select></span></label>
+      <label>Increment <span class="select-wrap"><select id="increment-filter"><option value="">All increments</option></select></span></label>
+      <button id="add-column" class="secondary">+ Add column</button>
+    </section>
+    <div class="board-heading"><div><h2>Your board</h2><p>Click a ticket title to view details, drag between columns, or use Edit to change fields.</p></div><span id="ticket-count"></span></div>
+    <section id="board" class="board" aria-label="Kanban board"></section>
+  </main>
+  <dialog id="ticket-dialog">
+    <form id="ticket-form">
+      <div class="dialog-heading"><div><p class="eyebrow">YOUR BOARD</p><h2 id="ticket-dialog-title">New ticket</h2></div><button type="button" class="icon-button close-dialog" aria-label="Close">×</button></div>
+      <label>Title <span class="required">*</span><input name="title" required maxlength="200" autofocus></label>
+      <label>Description <textarea name="description" rows="4"></textarea></label>
+      <div class="form-grid">
+        <label>Project <span class="select-wrap"><select id="project-pick" name="project"><option value="">Select project…</option></select></span></label>
+        <label>Increment <input name="increment" maxlength="120"></label>
+      </div>
+      <div class="form-grid">
+        <label>Owner <span class="select-wrap"><select id="owner-pick" name="owner"><option value="">Select owner…</option></select></span></label>
+        <label>Due date <input name="dueDate" type="date"></label>
+      </div>
+      <label>Column <span class="select-wrap"><select name="columnId" required></select></span></label>
+      <div class="dialog-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit">Save ticket</button></div>
+    </form>
+  </dialog>
+  <dialog id="ticket-view-dialog" aria-labelledby="view-title">
+    <div class="ticket-view">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">YOUR BOARD</p><h2 id="view-title">Ticket</h2></div>
+        <button type="button" class="icon-button close-dialog" aria-label="Close">×</button>
+      </div>
+      <dl class="ticket-view-fields">
+        <div class="ticket-view-row ticket-view-row--block">
+          <dt>Description</dt>
+          <dd id="view-description" class="ticket-view-text"></dd>
+        </div>
+        <div class="ticket-view-grid">
+          <div class="ticket-view-row"><dt>Project</dt><dd id="view-project"></dd></div>
+          <div class="ticket-view-row"><dt>Increment</dt><dd id="view-increment"></dd></div>
+          <div class="ticket-view-row"><dt>Owner</dt><dd id="view-owner"></dd></div>
+          <div class="ticket-view-row"><dt>Due date</dt><dd id="view-due-date"></dd></div>
+        </div>
+        <div class="ticket-view-row"><dt>Column</dt><dd id="view-column"></dd></div>
+      </dl>
+      <div class="dialog-actions">
+        <button type="button" class="secondary close-dialog">Close</button>
+        <button type="button" id="view-edit-button">Edit ticket</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="column-dialog">
+    <form id="column-form">
+      <div class="dialog-heading"><h2 id="column-dialog-title">Add column</h2><button type="button" class="icon-button close-dialog" aria-label="Close">×</button></div>
+      <label>Column name <input name="name" required maxlength="100" autofocus></label>
+      <div class="dialog-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit">Save column</button></div>
+    </form>
+  </dialog>
+  <dialog id="delete-column-dialog">
+    <form id="delete-column-form">
+      <div class="dialog-heading"><h2>Delete column</h2><button type="button" class="icon-button close-dialog" aria-label="Close">×</button></div>
+      <p>Move this column’s tickets before deleting it.</p>
+      <label>Move tickets to <span class="select-wrap"><select name="destination" required></select></span></label>
+      <div class="dialog-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit" class="danger">Move and delete</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
