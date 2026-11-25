@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Optional: local board backups you don't want in git, be sure to specify them here 
+data/orderly-board.csv
+data/*.csv
